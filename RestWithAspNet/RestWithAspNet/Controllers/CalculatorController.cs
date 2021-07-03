@@ -171,14 +171,10 @@ namespace RestWithAspNet.Controllers
 
 
                 if (IsNumeric(firstNumber))
-                {
-                    var sum = ConvertToDecimal(firstNumber) * ConvertToDecimal(firstNumber);
-                    return Ok(sum.ToString()); ;
-                }
+                    return Ok((Math.Sqrt((double)ConvertToDecimal(firstNumber))));
                 else
-                {
-                    return BadRequest("Invalid input");
-                }
+                    return BadRequest($"Invalid input {firstNumber}");
+
             }
             catch (Exception)
             {
