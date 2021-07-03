@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using RestWithAspNet2.Services;
+using RestWithAspNet2.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +34,7 @@ namespace RestWithAspNet2
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RestWithAspNet2", Version = "v1" });
             });
+            services.AddScoped<IPersonService, PersonService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
