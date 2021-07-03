@@ -1,10 +1,12 @@
 ﻿using DAO.Classes;
 using Entidades;
+using RestWithAspNet2.Exceptions;
 using RestWithAspNet2.Model;
 using RestWithAspNet2.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,34 +21,54 @@ namespace RestWithAspNet2.Services
         #region CRUD Call Methods
         public PersonModel Create(PersonModel person)
         {
-            TB_PERSON _person = new TB_PERSON()
+            string fullMethodName = $"{MethodBase.GetCurrentMethod().ReflectedType.FullName}.{MethodBase.GetCurrentMethod().Name}";
+            try
             {
-                id = 0,
-                address = person.Address,
-                firstname = person.FirstName,
-                lastname = person.LastName,
-                gender = person.Gender
-            };
+                TB_PERSON _person = new TB_PERSON()
+                {
+                    id = 0,
+                    address = person.Address,
+                    firstname = person.FirstName,
+                    lastname = person.LastName,
+                    gender = person.Gender
+                };
 
-            var id = _context.Add(_person);
-            person.Id = id;
-            return person;
+                var id = _context.Add(_person);
+                person.Id = id;
+                return person;
+            }
+            catch (RestException rex)
+            {
+                rex.LocalCallMethod = $"{fullMethodName}";
+                throw;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public void DeleteById(long Id)
         {
+            string fullMethodName = $"{MethodBase.GetCurrentMethod().ReflectedType.FullName}.{MethodBase.GetCurrentMethod().Name}";
             try
             {
                 _context.DeleteById(Id);
             }
+            catch (RestException rex)
+            {
+                rex.LocalCallMethod = $"{fullMethodName}";
+                throw;
+            }
             catch (Exception)
             {
-                return;
+                throw;
             }
         }
 
         public List<PersonModel> FindAll()
         {
+            string fullMethodName = $"{MethodBase.GetCurrentMethod().ReflectedType.FullName}.{MethodBase.GetCurrentMethod().Name}";
             try
             {
                 List<PersonModel> personModels = new List<PersonModel>();
@@ -70,14 +92,20 @@ namespace RestWithAspNet2.Services
 
                 return personModels;
             }
+            catch (RestException rex)
+            {
+                rex.LocalCallMethod = $"{fullMethodName}";
+                throw;
+            }
             catch (Exception)
             {
-                return new List<PersonModel>();
+                throw;
             }
         }
 
         public PersonModel FindById(long Id)
         {
+            string fullMethodName = $"{MethodBase.GetCurrentMethod().ReflectedType.FullName}.{MethodBase.GetCurrentMethod().Name}";
             try
             {
                 var person = _context.GetPerson(Id);
@@ -93,14 +121,20 @@ namespace RestWithAspNet2.Services
                 else
                     return new PersonModel();
             }
+            catch (RestException rex)
+            {
+                rex.LocalCallMethod = $"{fullMethodName}";
+                throw;
+            }
             catch (Exception)
             {
-                return new PersonModel();
+                throw;
             }
         }
 
         public PersonModel Update(PersonModel person)
         {
+            string fullMethodName = $"{MethodBase.GetCurrentMethod().ReflectedType.FullName}.{MethodBase.GetCurrentMethod().Name}";
             try
             {
                 TB_PERSON _person = new TB_PERSON()
@@ -118,9 +152,14 @@ namespace RestWithAspNet2.Services
                 else
                     return new PersonModel();
             }
+            catch (RestException rex)
+            {
+                rex.LocalCallMethod = $"{fullMethodName}";
+                throw;
+            }
             catch (Exception)
             {
-                return new PersonModel();
+                throw;
             }
         }
         #endregion
