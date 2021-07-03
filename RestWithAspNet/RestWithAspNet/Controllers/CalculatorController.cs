@@ -118,13 +118,15 @@ namespace RestWithAspNet.Controllers
 
                 if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
                 {
-                    var sum = ConvertToDecimal(firstNumber) / ConvertToDecimal(secondNumber);
-                    return Ok(sum.ToString()); ;
+                    if(firstNumber == "0")
+                        return BadRequest($"Invalid input {firstNumber}");
+                    if(secondNumber == "0")
+                        return BadRequest($"Invalid input {secondNumber}");
+                    else
+                        return Ok((ConvertToDecimal(firstNumber) / ConvertToDecimal(secondNumber)).ToString());
                 }
                 else
-                {
                     return BadRequest("Invalid input");
-                }
             }
             catch (Exception)
             {
