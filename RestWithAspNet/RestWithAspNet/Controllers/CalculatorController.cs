@@ -2,9 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+
 
 namespace RestWithAspNet.Controllers
 {
@@ -14,6 +16,7 @@ namespace RestWithAspNet.Controllers
     {
         #region private parameters
         private readonly ILogger<CalculatorController> _logger;
+        private CalculateMethods.Calculate calculate { get; set; } = new CalculateMethods.Calculate();
         #endregion
 
         #region Constructor
@@ -27,193 +30,87 @@ namespace RestWithAspNet.Controllers
         [HttpGet("sun/{firstNumber}/{secondNumber}")]
         public IActionResult sun(string firstNumber, string secondNumber)
         {
+            string fullMethodName = $"{MethodBase.GetCurrentMethod().ReflectedType.FullName}.{MethodBase.GetCurrentMethod().Name}";
             try
             {
-                if (firstNumber.Contains("."))
-                    firstNumber = firstNumber.Replace(".", ",");
-
-                if (secondNumber.Contains("."))
-                    secondNumber = secondNumber.Replace(".", ",");
-
-                if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
-                {
-                    var sum = ConvertToDecimal(firstNumber) + ConvertToDecimal(secondNumber);
-                    return Ok(sum.ToString()); ;
-                }
-                else
-                {
-                    return BadRequest("Invalid input");
-                }
+                return Ok(calculate.sun(firstNumber, secondNumber));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest("Invalid input");
+                return BadRequest($"Invalid input Call Method => {fullMethodName}; Exception Message => {ex.Message}");
             }
         }
 
         [HttpGet("subtraction/{firstNumber}/{secondNumber}")]
         public IActionResult subtraction(string firstNumber, string secondNumber)
         {
+            string fullMethodName = $"{MethodBase.GetCurrentMethod().ReflectedType.FullName}.{MethodBase.GetCurrentMethod().Name}";
             try
             {
-                if (firstNumber.Contains("."))
-                    firstNumber = firstNumber.Replace(".", ",");
-
-                if (secondNumber.Contains("."))
-                    secondNumber = secondNumber.Replace(".", ",");
-
-                if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
-                {
-                    var sum = ConvertToDecimal(firstNumber) - ConvertToDecimal(secondNumber);
-                    return Ok(sum.ToString()); ;
-                }
-                else
-                {
-                    return BadRequest("Invalid input");
-                }
+                return Ok(calculate.subtraction(firstNumber, secondNumber));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest("Invalid input");
+                return BadRequest($"Invalid input Call Method => {fullMethodName}; Exception Message => {ex.Message}");
             }
         }
 
         [HttpGet("multiplication/{firstNumber}/{secondNumber}")]
         public IActionResult multiplication(string firstNumber, string secondNumber)
         {
+            string fullMethodName = $"{MethodBase.GetCurrentMethod().ReflectedType.FullName}.{MethodBase.GetCurrentMethod().Name}";
             try
             {
-                if (firstNumber.Contains("."))
-                    firstNumber = firstNumber.Replace(".", ",");
-
-                if (secondNumber.Contains("."))
-                    secondNumber = secondNumber.Replace(".", ",");
-
-                if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
-                {
-                    var sum = ConvertToDecimal(firstNumber) * ConvertToDecimal(secondNumber);
-                    return Ok(sum.ToString()); ;
-                }
-                else
-                {
-                    return BadRequest("Invalid input");
-                }
+                return Ok(calculate.multiplication(firstNumber, secondNumber));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest("Invalid input");
+                return BadRequest($"Invalid input Call Method => {fullMethodName}; Exception Message => {ex.Message}");
             }
         }
 
         [HttpGet("division/{firstNumber}/{secondNumber}")]
         public IActionResult division(string firstNumber, string secondNumber)
         {
+            string fullMethodName = $"{MethodBase.GetCurrentMethod().ReflectedType.FullName}.{MethodBase.GetCurrentMethod().Name}";
+
             try
             {
-                if (firstNumber.Contains("."))
-                    firstNumber = firstNumber.Replace(".", ",");
-
-                if (secondNumber.Contains("."))
-                    secondNumber = secondNumber.Replace(".", ",");
-
-                if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
-                {
-                    if(firstNumber == "0")
-                        return BadRequest($"Invalid input {firstNumber}");
-                    if(secondNumber == "0")
-                        return BadRequest($"Invalid input {secondNumber}");
-                    else
-                        return Ok((ConvertToDecimal(firstNumber) / ConvertToDecimal(secondNumber)).ToString());
-                }
-                else
-                    return BadRequest("Invalid input");
+                return Ok(calculate.division(firstNumber, secondNumber));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest("Invalid input");
+                return BadRequest($"Invalid input Call Method => {fullMethodName}; Exception Message => {ex.Message}");
             }
         }
 
         [HttpGet("media/{firstNumber}/{secondNumber}")]
         public IActionResult media(string firstNumber, string secondNumber)
         {
+            string fullMethodName = $"{MethodBase.GetCurrentMethod().ReflectedType.FullName}.{MethodBase.GetCurrentMethod().Name}";
+
             try
             {
-                if (firstNumber.Contains("."))
-                    firstNumber = firstNumber.Replace(".", ",");
-
-                if (secondNumber.Contains("."))
-                    secondNumber = secondNumber.Replace(".", ",");
-
-                if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
-                {
-                    var sum = (ConvertToDecimal(firstNumber) + ConvertToDecimal(secondNumber)) / 2;
-                    return Ok(sum.ToString()); ;
-                }
-                else
-                {
-                    return BadRequest("Invalid input");
-                }
+                return Ok(calculate.media(firstNumber, secondNumber));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest("Invalid input");
+                return BadRequest($"Invalid input Call Method => {fullMethodName}; Exception Message => {ex.Message}");
             }
         }
 
         [HttpGet("squareRoot/{firstNumber}")]
         public IActionResult squareRoot(string firstNumber)
         {
+            string fullMethodName = $"{MethodBase.GetCurrentMethod().ReflectedType.FullName}.{MethodBase.GetCurrentMethod().Name}";
+
             try
             {
-                if (firstNumber.Contains("."))
-                    firstNumber = firstNumber.Replace(".", ",");
-
-
-                if (IsNumeric(firstNumber))
-                    return Ok((Math.Sqrt((double)ConvertToDecimal(firstNumber))));
-                else
-                    return BadRequest($"Invalid input {firstNumber}");
-
+                return Ok(calculate.squareRoot(firstNumber));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest("Invalid input");
-            }
-        }
-        #endregion
-
-        #region Utils Methods
-        private bool IsNumeric(string strNumber)
-        {
-            try
-            {
-                double number;
-                bool isNumber = double.TryParse(strNumber, 
-                                                System.Globalization.NumberStyles.Any,
-                                                 System.Globalization.NumberFormatInfo.InvariantInfo, out number);
-
-                return isNumber;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-
-        private decimal ConvertToDecimal(string strNumber)
-        {
-            try
-            {
-                decimal decimalValue;
-                if(decimal.TryParse(strNumber, out decimalValue))
-                    return decimalValue;
-                else
-                    return 0;
-            }
-            catch (Exception)
-            {
-                return 0;
+                return BadRequest($"Invalid input Call Method => {fullMethodName}; Exception Message => {ex.Message}");
             }
         }
         #endregion
