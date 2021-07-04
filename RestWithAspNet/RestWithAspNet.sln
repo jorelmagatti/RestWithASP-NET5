@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAO", "DAO\DAO.csproj", "{6
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entidades", "Entidades\Entidades.csproj", "{79460079-2BF7-45A8-A9CD-5347AB484F83}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAO_MySql", "DAO_MySql\DAO_MySql.csproj", "{8A5767D8-00FF-44A3-A15B-3DFB02BA28F7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,18 @@ Global
 		{79460079-2BF7-45A8-A9CD-5347AB484F83}.Release|x64.Build.0 = Release|Any CPU
 		{79460079-2BF7-45A8-A9CD-5347AB484F83}.Release|x86.ActiveCfg = Release|Any CPU
 		{79460079-2BF7-45A8-A9CD-5347AB484F83}.Release|x86.Build.0 = Release|Any CPU
+		{8A5767D8-00FF-44A3-A15B-3DFB02BA28F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A5767D8-00FF-44A3-A15B-3DFB02BA28F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A5767D8-00FF-44A3-A15B-3DFB02BA28F7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8A5767D8-00FF-44A3-A15B-3DFB02BA28F7}.Debug|x64.Build.0 = Debug|Any CPU
+		{8A5767D8-00FF-44A3-A15B-3DFB02BA28F7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8A5767D8-00FF-44A3-A15B-3DFB02BA28F7}.Debug|x86.Build.0 = Debug|Any CPU
+		{8A5767D8-00FF-44A3-A15B-3DFB02BA28F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A5767D8-00FF-44A3-A15B-3DFB02BA28F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A5767D8-00FF-44A3-A15B-3DFB02BA28F7}.Release|x64.ActiveCfg = Release|Any CPU
+		{8A5767D8-00FF-44A3-A15B-3DFB02BA28F7}.Release|x64.Build.0 = Release|Any CPU
+		{8A5767D8-00FF-44A3-A15B-3DFB02BA28F7}.Release|x86.ActiveCfg = Release|Any CPU
+		{8A5767D8-00FF-44A3-A15B-3DFB02BA28F7}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
